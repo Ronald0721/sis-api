@@ -1,5 +1,10 @@
 const Student = require('../models/student.model');
 
+const getAll = async () => {
+  const students = await Student.find()
+  return students
+}
+
 const registerStudent = async (studentData, id) => {
   studentData.userId = Object(id)
 
@@ -8,4 +13,4 @@ const registerStudent = async (studentData, id) => {
   return student;
 };
 
-module.exports = { registerStudent };
+module.exports = { registerStudent, getAll };

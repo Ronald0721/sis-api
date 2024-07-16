@@ -1,4 +1,4 @@
-const { registerUser  } = require('../services/user.service');
+const { registerUser, loginUser  } = require('../services/user.service');
 const { generateToken } = require('../services/token.service');
 
 const registerUserController = async (req, res) => {
@@ -11,4 +11,14 @@ const registerUserController = async (req, res) => {
     }
 }
 
-module.exports = { registerUserController }
+const loginUserController = async (req, res) => {
+    try {
+        const user = await loginUser(req.body);
+        const token = generateToken(user);
+        res.status(201).json({user: user, token})
+    } catch (error) {
+        res.status(500).json({ message: 'Failed login user', error: error.message });
+    }
+}
+
+module.exports = { registerUserController, loginUserController }
